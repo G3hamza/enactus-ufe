@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enactus UFE Is Recruiting</title>
+<meta name="description" content="Enactus UFE is recruiting for 2026–27. Play a 60-second game, discover Enactus, and apply in 2 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ====== EDIT THESE 3 LINES BEFORE PUBLISHING ====== */
+/* FORM_URL, DEADLINE and INSTAGRAM are set in the <script> at the bottom */
+:root{
+  --y:#FFC222; --y2:#FFD666; --k:#000000; --k2:#181818; --k3:#2A2A2A;
+  --w:#FFFFFF; --mute:#BDBDBD; --ok:#7BE0A6; --bad:#FF8A7A;
+  --r:18px; color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--k);color:var(--w);font-family:Poppins,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+.fr{font-style:italic;color:#E6E6E6}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+section.wrap{padding:40px 16px}
+h1{font-size:clamp(30px,8vw,44px);line-height:1.1;font-weight:800}
+h2{font-size:26px;line-height:1.2;font-weight:800;margin-bottom:12px}
+.y{color:var(--y)}
+.lead{color:#E6E6E6;font-size:17px;margin-top:14px}
+.kicker{display:inline-block;background:var(--y);color:var(--k);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:14px}
+.hero{padding-top:20px;text-align:center}
+.hero img{width:min(300px,78vw);display:block;margin:0 auto 6px}
+.btn{display:inline-block;border:0;cursor:pointer;font:800 17px Poppins,Arial,sans-serif;padding:16px 26px;border-radius:999px;text-decoration:none;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn-y{background:var(--y);color:var(--k)}
+.btn-ghost{background:transparent;color:var(--w);border:2px solid #555}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px}
+.small{font-size:13px;color:var(--mute)}
+.card{background:var(--k2);border:1px solid var(--k3);border-radius:var(--r);padding:20px}
+/* game */
+#game{display:none}
+.hud{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+.hud div{background:var(--k2);border:1px solid var(--k3);border-radius:14px;padding:8px 6px;text-align:center}
+.hud small{display:block;font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+.hud b{font-size:24px;font-variant-numeric:tabular-nums}
+.hud .t b{color:var(--y)}
+.hud .t.low b{color:var(--bad)}
+.tbar{height:6px;border-radius:6px;background:var(--k3);overflow:hidden;margin-bottom:12px}
+.tbar i{display:block;height:100%;width:100%;background:var(--y);transition:width .2s linear}
+.roundtag{text-align:center;font-weight:600;margin-bottom:10px;min-height:24px}
+.arena{position:relative;max-width:420px;margin:0 auto;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+.grid9{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.hole{aspect-ratio:1;max-width:100%;border-radius:22px;background:radial-gradient(circle at 50% 70%,#262626 0 55%,#1a1a1a 56%);border:1px solid var(--k3);position:relative;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.item{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(40px,13vw,58px);transform:translateY(110%);transition:transform .14s ease-out}
+.item.up{transform:translateY(0)}
+.item small{position:absolute;bottom:8px;left:0;right:0;text-align:center;font:600 11px Poppins,Arial,sans-serif;color:var(--bad)}
+.item.bonus{filter:drop-shadow(0 0 10px var(--y))}
+.hole.hit{background:radial-gradient(circle,#2d5a3f 0 60%,#1a1a1a 61%)}
+.hole.bad{background:radial-gradient(circle,#5a2a24 0 60%,#1a1a1a 61%)}
+.pop{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);font:800 20px Poppins,Arial,sans-serif;pointer-events:none;animation:pop .7s ease-out forwards;white-space:nowrap}
+@keyframes pop{to{transform:translate(-50%,-160%);opacity:0}}
+.overlay{position:absolute;inset:-6px;background:rgba(0,0,0,.92);border-radius:24px;display:flex;flex-direction:column;align-items:center;justify-content:safe center;overflow-y:auto;text-align:center;padding:20px;gap:10px;z-index:3}
+.overlay[hidden]{display:none}
+.overlay .big{font-size:72px;font-weight:800;color:var(--y);line-height:1}
+.overlay h3{font-size:22px;line-height:1.2}
+.overlay p{color:#E6E6E6;font-size:15px}
+.legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:14px}
+.boost{position:absolute;top:-34px;left:0;right:0;text-align:center;font-weight:800;color:var(--y);display:none}
+.shake{animation:shake .25s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.result{text-align:center}
+.score{font-size:64px;font-weight:800;color:var(--y);line-height:1}
+.badge{display:inline-block;margin-top:10px;background:var(--y);color:var(--k);font-weight:800;padding:8px 16px;border-radius:999px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.stats div{background:var(--k);border-radius:12px;padding:10px 4px;font-size:13px;color:#D6D6D6}
+.stats b{display:block;font-size:24px;color:var(--w)}
+.ctrl{display:flex;justify-content:flex-end;margin-bottom:8px}
+.mute{background:none;border:1px solid var(--k3);color:var(--mute);border-radius:999px;padding:4px 12px;font:600 13px Poppins,Arial,sans-serif;cursor:pointer}
+@media (prefers-reduced-motion:reduce){.item{transition:none}.pop{animation-duration:.01s}.shake{animation:none}}
+.q{font-size:20px;font-weight:800;margin-bottom:6px}
+.opts{display:grid;gap:10px;margin-top:14px}
+.opt{text-align:left;background:var(--k2);color:var(--w);border:2px solid var(--k3);border-radius:14px;padding:14px 16px;font:500 15px Poppins,Arial,sans-serif;cursor:pointer;display:flex;gap:12px;align-items:flex-start}
+.opt:hover{border-color:#666}
+.opt b{display:block;font-size:16px}
+.overlay .opts{width:100%;margin-top:4px;gap:8px}
+.overlay .opt{padding:10px 12px;font-size:14px}
+.opt.good{border-color:var(--ok);background:#173126}
+.opt.meh{border-color:var(--bad);background:#33201d;opacity:.85}
+.dbar{width:100%;height:5px;border-radius:5px;background:var(--k3);overflow:hidden}
+.dbar i{display:block;height:100%;background:var(--y);width:100%}
+.mission{text-align:left;display:grid;gap:8px;font-size:14px;color:#E6E6E6;max-width:340px}
+.mission b{color:var(--w)}
+.explain{display:grid;gap:8px;margin-top:16px;text-align:left}
+.explain>div{display:flex;gap:10px;align-items:flex-start;background:var(--k);border-radius:12px;padding:10px 12px;font-size:14px;color:#E6E6E6}
+.explain span{flex:none;width:26px;height:26px;border-radius:50%;background:var(--y);color:var(--k);font-weight:800;display:grid;place-items:center;font-size:13px}
+/* know */
+.loop{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0}
+.loop div{background:var(--k2);border-radius:14px;padding:14px 8px;text-align:center;font-weight:600;font-size:14px}
+.loop span{display:block;font-size:26px}
+ul.ticks{list-style:none;display:grid;gap:10px;margin-top:12px}
+ul.ticks li{padding-left:30px;position:relative}
+ul.ticks li:before{content:"✓";position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--y);color:var(--k);font-weight:800;font-size:13px;display:grid;place-items:center}
+.depts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.dept{background:var(--k2);border:1px solid var(--k3);border-radius:14px;padding:14px}
+.dept b{display:block;color:var(--y);margin:4px 0 2px}
+.dept p{font-size:13px;color:#D6D6D6}
+.dept.hit{border-color:var(--y);box-shadow:0 0 0 2px var(--y) inset}
+.faq details{background:var(--k2);border-radius:14px;padding:14px 16px;margin-top:10px}
+.faq summary{font-weight:600;cursor:pointer}
+.faq p{margin-top:8px;color:#D6D6D6;font-size:15px}
+.cta{background:var(--y);color:var(--k);border-radius:24px;padding:28px 20px;text-align:center}
+.cta h2{color:var(--k)}
+.cta .btn{background:var(--k);color:var(--y)}
+.sticky{position:fixed;left:0;right:0;bottom:0;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px)) !important;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);border-top:1px solid var(--k3);padding:12px 16px;display:flex;justify-content:center;z-index:9}
+.sticky .btn{width:100%;max-width:528px;text-align:center;padding:14px}
+footer{text-align:center;padding:28px 0 10px;color:var(--mute);font-size:13px}
+footer a{color:var(--y)}
+@media (max-width:360px){.depts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="wrap hero">
+  <img src="data:image/webp;base64,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" alt="Enactus Université Française d'Égypte logo">
+  <span class="kicker">Season 2026–27 · Apply by Sun 15 Nov</span>
+  <h1>Enactus UFE is <span class="y">recruiting!</span> 🚀</h1>
+  <p class="lead"><b>Wanna break? ☕</b> First, let's see if you can solve a real problem in 60 seconds. Then apply in 2 minutes.</p>
+  <p class="lead fr">Enactus UFE recrute ! Relève le défi : résous un vrai problème en 60 secondes.</p>
+  <div class="row">
+    <button class="btn btn-y" id="startBtn">Start the game ▶</button>
+    <a class="btn btn-ghost" href="#know">Know more about Enactus</a>
+  </div>
+  <p class="small" style="margin-top:12px">Free · no sign-in · 60 seconds · sound on 🔊</p>
+</header>
+
+<!-- GAME -->
+<section class="wrap" id="game" aria-live="polite">
+  <div class="ctrl"><button class="mute" id="muteBtn" type="button">🔊 Sound on</button></div>
+  <div class="hud">
+    <div class="t" id="tBox"><small>Time</small><b id="tLeft">60</b></div>
+    <div><small>Impact</small><b id="sc">0</b></div>
+    <div><small>Combo</small><b id="cb">x1</b></div>
+  </div>
+  <div class="tbar"><i id="tFill"></i></div>
+  <p class="roundtag" id="roundTag">&nbsp;</p>
+  <div class="arena" id="arena">
+    <div class="grid9" id="grid"></div>
+    <div class="overlay" id="ov" hidden></div>
+  </div>
+  <div id="resultBox"></div>
+</section>
+
+<!-- KNOW ENACTUS -->
+<section class="wrap" id="know">
+  <span class="kicker">Know Enactus</span>
+  <h2>What is <span class="y">Enactus?</span></h2>
+  <p>Enactus is a global network of students in 30+ countries who use business to solve real social and environmental problems. At UFE, we build our own projects, test them with real people, and compete at the Enactus Egypt National Competition.</p>
+  <p class="fr" style="margin-top:12px">Ni une association caritative, ni des cours : une équipe d'étudiants qui construit de vrais projets pour changer de vraies vies.</p>
+</section>
+
+<section class="wrap">
+  <h2>What you get</h2>
+  <ul class="ticks">
+    <li><b>Skills your courses don't teach:</b> leadership, project management, pitching, teamwork.</li>
+    <li><b>Real work for your CV:</b> projects, events and partnerships you actually ran.</li>
+    <li><b>A national stage:</b> pitch in front of business leaders at the national competition.</li>
+    <li><b>Weekly sessions</b> that get you job-ready, plus a network of alumni.</li>
+    <li><b>Your people:</b> a team you'll keep long after university.</li>
+  </ul>
+</section>
+
+<section class="wrap" id="depts">
+  <h2>Six teams. <span class="y">Which one is you?</span></h2>
+  <p>Answer 3 quick questions, or just read the cards.</p>
+  <div class="card" style="margin-top:14px" id="quiz"></div>
+  <div class="depts" id="deptGrid"></div>
+</section>
+
+<section class="wrap faq">
+  <h2>Quick answers</h2>
+  <details><summary>Do I need experience?</summary><p>No. Everyone gets onboarding and training in their team. We care about commitment, not CVs.</p></details>
+  <details><summary>How much time does it take?</summary><p>A few hours a week plus one weekly meeting. We plan around your exams, study comes first.</p></details>
+  <details><summary>I'm in first year. Too early?</summary><p>It's the best time. First-years grow the most, and today's members are next year's Heads.</p></details>
+  <details><summary>What happens after I sign up?</summary><p>We message you on WhatsApp within 48 hours with the next step: a short, friendly chat and the welcome session date.</p></details>
+  <details><summary>Is there a fee?</summary><p>No. Joining Enactus UFE is free.</p></details>
+</section>
+
+<section class="wrap" id="join">
+  <div class="cta">
+    <h2>Ready to build something real?</h2>
+    <p style="font-weight:600">Applications close <span id="deadline">__DEADLINE__</span>. It takes 2 minutes.</p>
+    <p style="margin-top:6px;font-style:italic">L'inscription prend 2 minutes. On y va !</p>
+    <div class="row"><a class="btn" id="formBtn" href="#" target="_blank" rel="noopener">Join Enactus UFE →</a></div>
+    <p id="pickNote" style="margin-top:12px;font-weight:600;display:none"></p>
+  </div>
+</section>
+
+<footer class="wrap">
+  Enactus Université Française d'Égypte · 2026–27<br>
+  <a id="igLink" href="#" target="_blank" rel="noopener">Follow us on Instagram</a>
+</footer>
+
+<div class="sticky"><a class="btn btn-y" id="stickyBtn" href="#" target="_blank" rel="noopener">Join Enactus UFE · 2 min</a></div>
+
+<script>
+/* ====== EDIT BEFORE PUBLISHING ====== */
+const FORM_URL  = "https://forms.cloud.microsoft/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAO__TYHb9FUQU9ITVkyVEtESjg1SVFUQjNNT05WMEZRQi4u&route=shorturl";
+const DEADLINE  = "Sunday 15 November";
+const INSTAGRAM = "https://www.instagram.com/enactusufe/";
+/* ==================================== */
+
+document.getElementById('deadline').textContent = DEADLINE;
+["formBtn","stickyBtn"].forEach(id=>document.getElementById(id).href=FORM_URL);
+document.getElementById('igLink').href = INSTAGRAM;
+
+/* ---------- Impact Rush: 60-second tap game ---------- */
+const ROUNDS=[
+  {name:"Plastic on campus",fr:"Le plastique sur le campus",good:"🧴",made:"👜",verb:"bottles turned into bags",tip:"Tap the 🧴 bottles to turn them into bags.",
+   q:"Bottles collected! But next week the campus is full again. What fixes it for good?",
+   opts:[{t:"A big clean-up day every month",g:0},{t:"Pay students to collect bottles and sell bags made from them",g:1},{t:"\"Don't litter\" signs on every bin",g:0}],
+   why:"A business that pays for itself keeps going. A clean-up day ends when the day ends."},
+  {name:"Bread waste",fr:"Le pain gaspillé",good:"🍞",made:"🥪",verb:"loaves turned into meals",tip:"Tap the 🍞 bread before it's thrown away.",
+   q:"Bakeries throw bread away every night. What fixes it for good?",
+   opts:[{t:"Collect and donate it once",g:0},{t:"A cheap \"second-day bread\" shop run by local women",g:1},{t:"A post about food waste",g:0}],
+   why:"Bakeries earn, families save, women get income, and it runs every day."},
+  {name:"Hidden talent",fr:"Les talents cachés",good:"🧶",made:"🧣",verb:"crafts sold for artisans",tip:"Tap the 🧶 yarn to turn it into products to sell.",
+   q:"Village women make great crafts but have no buyers. What fixes it for good?",
+   opts:[{t:"Buy a few pieces yourself",g:0},{t:"Build an online brand where they keep the profit",g:1},{t:"Share a sad post about them",g:0}],
+   why:"A real market gives them income for years, not one sale."}
+];
+const BAD=[{e:"📱",l:"scrolling"},{e:"😴",l:"later…"},{e:"🙅",l:"not my problem"}];
+const ROUND_MS=15000, DECIDE_MS=5000;
+const $=id=>document.getElementById(id);
+const grid9=$('grid'), ov=$('ov');
+let holes=[], st=null, sound=true, actx=null;
+
+grid9.innerHTML=Array.from({length:9},(_,i)=>`<div class="hole" data-i="${i}" role="button" aria-label="hole ${i+1}"></div>`).join('');
+holes=[...grid9.children].map(el=>({el,item:null,kind:null,timer:null}));
+
+function beep(f,d,type){ if(!sound) return; try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(.15,actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+d);o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+d);}catch(e){} }
+$('muteBtn').onclick=()=>{sound=!sound;$('muteBtn').textContent=sound?'🔊 Sound on':'🔇 Sound off';};
+
+function bestGet(){try{return +localStorage.getItem('enactusRushBest')||0}catch(e){return 0}}
+function bestSet(v){try{localStorage.setItem('enactusRushBest',v)}catch(e){}}
+
+function showOverlay(html,ms){ov.innerHTML=html;ov.hidden=false;if(ms)return new Promise(r=>setTimeout(()=>{ov.hidden=true;r();},ms));}
+
+async function startGame(){
+  document.getElementById('game').style.display='block';
+  $('resultBox').innerHTML='';
+  document.getElementById('game').scrollIntoView({behavior:'smooth',block:'start'});
+  clearAll();
+  st={score:0,combo:0,made:[0,0,0],smart:0,bad:0,round:0,left:60000,last:0,spawnAt:0,boostUntil:0,running:false};
+  updHud();
+  beep(440,.08);
+  await new Promise(res=>{ showOverlay(`<h3>🎯 Your mission</h3>
+    <div class="mission"><div>Enactus students fix real problems in Egypt by building small businesses, not one-time charity.</div>
+    <div>You get <b>60 seconds</b> and <b>3 real problems</b>. For each one:</div>
+    <div>⚡ <b>Act fast:</b> tap the waste to turn it into products. Dodge the excuses.</div>
+    <div>🧠 <b>Choose smart:</b> pick the fix that lasts.</div></div>
+    <button class="btn btn-y" id="goBtn" type="button">I'm ready ▶</button>`); $('goBtn').onclick=()=>{ov.hidden=true;res();}; });
+  for(const n of [3,2,1]){ await showOverlay(`<div class="big">${n}</div><p>Get ready…</p>`,650); beep(520,.08); }
+  playRound(0);
+}
+
+async function playRound(r){
+  st.round=r; const R=ROUNDS[r];
+  $('roundTag').innerHTML=`Round ${r+1}/3 · <span class="y">${R.name}</span>`;
+  await showOverlay(`<p class="small">Round ${r+1} of 3</p><h3>${R.good} ${R.name}</h3><p class="fr">${R.fr}</p><p>⚡ ${R.tip}</p>
+    <div class="legend"><span>Avoid:</span>${BAD.map(b=>`<span>${b.e} ${b.l}</span>`).join('')}</div>`, r===0?2200:1700);
+  st.roundEnd=st.left-ROUND_MS; st.running=true; st.last=performance.now(); st.spawnAt=0;
+  requestAnimationFrame(loop);
+}
+
+function loop(now){
+  if(!st||!st.running) return;
+  const dt=now-st.last; st.last=now; st.left-=dt;
+  const elapsed=60000-st.left, prog=Math.min(1,elapsed/60000);
+  st.spawnAt-=dt;
+  if(st.spawnAt<=0){ spawn(prog); st.spawnAt=760-380*prog; }
+  updHud();
+  if(st.left<=st.roundEnd||st.left<=0){
+    st.running=false; clearAll();
+    if(st.left>0) { beep(660,.12); decide(st.round); }
+    else end();
+    return;
+  }
+  requestAnimationFrame(loop);
+}
+
+function decide(r){
+  const R=ROUNDS[r], opts=[...R.opts].sort(()=>Math.random()-.5);
+  $('roundTag').innerHTML=`🧠 Quick choice · <span class="y">${R.name}</span>`;
+  showOverlay(`<div class="dbar"><i id="dFill"></i></div>
+    <h3 style="font-size:16px">${R.q}</h3><div class="opts">${opts.map((o,i)=>`<button class="opt" type="button" data-i="${i}"><span>${o.t}</span></button>`).join('')}</div><p id="dWhy" class="small"></p>`);
+  const stopAt=Math.max(0,st.left-DECIDE_MS); let done=false, last=performance.now();
+  const btns=[...ov.querySelectorAll('.opt')];
+  function finish(o){
+    if(done) return; done=true;
+    btns.forEach((b,i)=>{b.disabled=true;b.classList.add(opts[i].g?'good':'meh');});
+    if(o&&o.g){st.smart++; st.score+=150; beep(880,.12); $('dWhy').innerHTML=`<b style="color:var(--ok)">+150 Smart choice!</b> ${R.why}`;}
+    else {beep(160,.2,'sawtooth'); $('dWhy').innerHTML=`<b style="color:var(--bad)">${o?'Not quite.':'Time’s up!'}</b> ${R.why}`;}
+    updHud();
+    setTimeout(()=>{ ov.hidden=true; if(r<2 && st.left>0) playRound(r+1); else end(); }, 2200);
+  }
+  btns.forEach((b,i)=>b.onclick=()=>finish(opts[i]));
+  (function tick(now){ if(done) return; st.left-=now-last; last=now;
+    if(st.left<=stopAt){st.left=stopAt; updHud(); finish(null); return;}
+    $('dFill').style.width=Math.max(0,(st.left-stopAt)/DECIDE_MS*100)+'%'; updHud(); requestAnimationFrame(tick); })(last);
+}
+
+function spawn(prog){
+  const free=holes.filter(h=>!h.kind); if(!free.length) return;
+  const h=free[Math.floor(Math.random()*free.length)];
+  const r=Math.random(); const R=ROUNDS[st.round];
+  let kind,html;
+  if(r<0.06 && performance.now()>st.boostUntil){kind='bonus';html='🤝';}
+  else if(r<0.30+0.08*prog){const b=BAD[Math.floor(Math.random()*BAD.length)];kind='bad';html=`${b.e}<small>${b.l}</small>`;}
+  else {kind='good';html=R.good;}
+  const el=document.createElement('div'); el.className='item'+(kind==='bonus'?' bonus':''); el.innerHTML=html;
+  h.el.appendChild(el); h.item=el; h.kind=kind;
+  requestAnimationFrame(()=>el.classList.add('up'));
+  const life=(kind==='bad'?1500:1250)-450*prog;
+  h.timer=setTimeout(()=>{ if(h.kind==='good'){st.combo=0;} hide(h); },life);
+}
+
+function hide(h){ clearTimeout(h.timer); const el=h.item; h.kind=null; h.item=null; if(el){el.classList.remove('up'); setTimeout(()=>el.remove(),150);} }
+function clearAll(){ holes.forEach(h=>{clearTimeout(h.timer); if(h.item) h.item.remove(); h.item=null; h.kind=null; h.el.classList.remove('hit','bad');}); }
+
+function popText(h,txt,color){const p=document.createElement('div');p.className='pop';p.style.color=color;p.textContent=txt;h.el.appendChild(p);setTimeout(()=>p.remove(),700);}
+
+function tap(h){
+  if(!st||!st.running||!h.kind) return;
+  const R=ROUNDS[st.round];
+  if(h.kind==='good'){
+    st.combo++; const mult=Math.min(5,1+Math.floor(st.combo/5))*(performance.now()<st.boostUntil?2:1);
+    const pts=10*mult; st.score+=pts; st.made[st.round]++;
+    h.item.innerHTML=R.made; h.el.classList.add('hit'); popText(h,`+${pts}`,'#7BE0A6');
+    beep(600+Math.min(st.combo,12)*40,.07,'triangle');
+    const k=h.kind; h.kind='done'; clearTimeout(h.timer);
+    setTimeout(()=>{h.el.classList.remove('hit'); h.kind=k; hide(h);},220);
+  } else if(h.kind==='bad'){
+    st.combo=0; st.left-=2000; st.bad++; h.el.classList.add('bad'); popText(h,'−2s','#FF8A7A');
+    beep(140,.18,'sawtooth'); try{navigator.vibrate&&navigator.vibrate(80)}catch(e){}
+    $('arena').classList.remove('shake'); void $('arena').offsetWidth; $('arena').classList.add('shake');
+    h.kind='done'; clearTimeout(h.timer); setTimeout(()=>{h.el.classList.remove('bad'); h.kind='x'; hide(h);},220);
+  } else if(h.kind==='bonus'){
+    st.boostUntil=performance.now()+5000; popText(h,'x2!','#FFC222'); beep(880,.15);
+    const rt=$('roundTag'), keep=rt.innerHTML; rt.innerHTML='<span class="y">🤝 TEAM UP! Double points for 5s</span>'; setTimeout(()=>{ if(st&&st.running) rt.innerHTML=`Round ${st.round+1}/3 · <span class="y">${ROUNDS[st.round].name}</span>`; },5000);
+    h.kind='done'; clearTimeout(h.timer); setTimeout(()=>{h.kind='x'; hide(h);},150);
+  }
+  updHud();
+}
+holes.forEach(h=>h.el.addEventListener('pointerdown',e=>{e.preventDefault();tap(h);}));
+
+function updHud(){
+  const secs=Math.max(0,Math.ceil(st.left/1000));
+  $('tLeft').textContent=secs; $('tBox').classList.toggle('low',secs<=10);
+  $('tFill').style.width=Math.max(0,st.left/600)+'%';
+  $('sc').textContent=st.score; $('cb').textContent='x'+(Math.min(5,1+Math.floor(st.combo/5))*(performance.now()<st.boostUntil?2:1));
+}
+
+function end(){
+  st.running=false; clearAll(); ov.hidden=true; $('roundTag').innerHTML='&nbsp;';
+  beep(520,.1); setTimeout(()=>beep(780,.2),120);
+  const total=st.made.reduce((a,b)=>a+b,0);
+  const bonus=Math.round(Math.max(0,st.left)/1000)*20; st.score+=bonus;
+  const best=Math.max(bestGet(),st.score); bestSet(best);
+  
+  const title= st.score>=2000?"Born Enactus entrepreneur 🏆": st.score>=1200?"Rising changemaker 🔥": st.score>=500?"Problem solver in the making 💡":"Big heart, ready to learn 🌱";
+  $('resultBox').innerHTML=`<div class="result card" style="margin-top:16px"><p class="small">Your impact score</p><div class="score">${st.score}</div>
+    <span class="badge">${title}</span>
+    <div class="stats"><div><b>${total}</b>waste turned into products</div><div><b>${st.smart}/3</b>smart choices</div><div><b>${best}</b>your best score</div></div>
+    <h3 style="margin-top:20px;font-size:20px">Here's the secret: <span class="y">that was Enactus.</span></h3>
+    <div class="explain">
+      <div><span>1</span><div><b>Spot a real problem</b> in your community, like plastic, food waste or people without income.</div></div>
+      <div><span>2</span><div><b>Act and build</b> a product or service that solves it.</div></div>
+      <div><span>3</span><div><b>Choose what lasts:</b> a business that keeps helping people, not a one-time fix.</div></div>
+    </div>
+    <div class="row"><a class="btn btn-y" href="#know">Discover Enactus ↓</a><button class="btn btn-ghost" id="again" type="button">Play again</button></div>
+    <p class="small" style="margin-top:12px">Screenshot your score and tag us 📸 Can your friends beat it?</p></div>`;
+  $('again').onclick=startGame;
+  $('resultBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+document.getElementById('startBtn').onclick=startGame;
+
+/* ---------- departments + mini quiz ---------- */
+const DEPTS={
+  projects:{e:"🛠️",n:"Projects",d:"The heart of Enactus. Find problems, build and test the businesses."},
+  marketing:{e:"🎨",n:"Marketing & Media",d:"Design, video, content. Tell our story to the world."},
+  pr:{e:"🤝",n:"Public Relations",d:"Partners, guests and media. Open doors for the team."},
+  fund:{e:"💰",n:"Fundraising",d:"Sponsors, budgets and events that fund our projects."},
+  hr:{e:"🧭",n:"HR & Operations",d:"The backbone. Develop members and keep the team running."},
+  career:{e:"🚀",n:"Career Development",d:"Weekly sessions and skills that get everyone job-ready."}
+};
+const QUIZ=[
+  {q:"On a group project, you're usually the one who…",o:[["…comes up with the idea and builds it","projects"],["…makes the slides look amazing","marketing"],["…keeps everyone organised and happy","hr"]]},
+  {q:"Pick a free afternoon:",o:[["Meeting new people at an event","pr"],["Planning a big event and its budget","fund"],["Learning a new skill online","career"]]},
+  {q:"Which compliment would you love most?",o:[["\"You solved it!\"","projects"],["\"You convinced them!\"","pr"],["\"That looks incredible!\"","marketing"]]}
+];
+const grid=document.getElementById('deptGrid');
+grid.innerHTML=Object.entries(DEPTS).map(([k,v])=>`<div class="dept" id="d-${k}"><span style="font-size:24px">${v.e}</span><b>${v.n}</b><p>${v.d}</p></div>`).join('');
+let qi=0, tally={};
+const quiz=document.getElementById('quiz');
+function renderQuiz(){
+  if(qi<QUIZ.length){
+    const Q=QUIZ[qi];
+    quiz.innerHTML=`<p class="small">Question ${qi+1} of 3</p><p class="q" style="font-size:18px">${Q.q}</p><div class="opts">${Q.o.map((o,i)=>`<button class="opt" data-k="${o[1]}"><span><b>${o[0]}</b></span></button>`).join('')}</div>`;
+    quiz.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{tally[b.dataset.k]=(tally[b.dataset.k]||0)+1;qi++;renderQuiz();});
+  } else {
+    const best=Object.entries(tally).sort((a,b)=>b[1]-a[1])[0][0]; const D=DEPTS[best];
+    document.querySelectorAll('.dept').forEach(x=>x.classList.remove('hit'));
+    document.getElementById('d-'+best).classList.add('hit');
+    quiz.innerHTML=`<p class="small">You'd fit in</p><p class="q">${D.e} ${D.n}</p><p>${D.d}</p>
+      <div class="row" style="justify-content:flex-start"><a class="btn btn-y" href="#join">Join as ${D.n} →</a><button class="btn btn-ghost" id="qAgain">Retry</button></div>`;
+    document.getElementById('qAgain').onclick=()=>{qi=0;tally={};renderQuiz();};
+    const note=document.getElementById('pickNote'); note.style.display='block';
+    note.textContent=`Tip: pick "${D.n}" when the form asks which team you like.`;
+  }
+}
+renderQuiz();
+</script>
+</body>
+</html>
